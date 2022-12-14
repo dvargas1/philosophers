@@ -1,7 +1,16 @@
-#include <unistd.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/14 16:36:29 by dvargas           #+#    #+#             */
+/*   Updated: 2022/12/14 16:55:47 by dvargas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philosophers.h"
 
 void help()
 {
@@ -14,15 +23,6 @@ void help2()
     printf("DEU RUIM CHEFEeeeeeeeeeeeee");
     exit(1);
 }
-
-typedef struct s_philo
-{
-    int philo_id;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int many_eats;
-}   t_philo;
 
 int ft_isdigit(char c)
 {
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 
     if(argc < 6)
         help();
-    if(ft_ignite(&aristoteles, argc, argv) == 0);
+    if(ft_ignite(&aristoteles, argc, argv) == 0)
     {
         printf("Hi, i'm the first Philosofer of this function\n");
         printf("My ID is: %d\n", aristoteles.philo_id);
@@ -118,8 +118,8 @@ int main(int argc, char **argv)
         iniciar philosofos ( lembrar de iniciar garfos x = x  x = x+1)
         iniciar garfos (mutex)
     Iniciar o banquete
-        cirar timestamps que serao impressos
-        criar threads dos filosofos chamando a funcao que coordena eles
+       mandela (get time of day) cirar timestamps que serao impressos
+        (pthread_create) criar threads dos filosofos chamando a funcao que coordena eles
             criar rotina pensar
             criar rotina comer
             criar rotina dormir
