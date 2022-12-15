@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:42:07 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/14 16:56:23 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:14:25 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,16 @@ typedef struct s_philo
     int time_to_sleep;
     int many_eats;
 }   t_philo;
+
+
+//Parse Functions
+int ft_isdigit(char c);
+int ft_littleatoi(char *s);
+int ft_isallnum(char *s);
+int ft_checkargs(int argc, char **argv);
+
+
+void help2();
+void help();
 
 #endif
