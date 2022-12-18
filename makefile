@@ -16,8 +16,8 @@ SRCS	=	main.c \
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philosophers
 CC			= cc
-CCFLAGS		= -g -Wall -Wextra -Werror
-ARGS		= 1 1 1 1 1
+CCFLAGS	= -g -Wall -Wextra -Werror
+ARGS		= 10 1 1 1 1
 
 all:		${NAME}
 
@@ -50,4 +50,4 @@ run:		all
 			@ echo ' '
 			./${NAME} ${ARGS}
 			@ echo ' '
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re run

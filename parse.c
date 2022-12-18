@@ -18,6 +18,7 @@ int ft_isdigit(char c)
         return 1;
     return(0);
 }
+
 int ft_littleatoi(char *s)
 {
     int i;
@@ -33,6 +34,8 @@ int ft_littleatoi(char *s)
     }
     if(nb > 2147483647)
         help();
+    if(nb == 0)
+      help();
     return((int)nb);
 }
 

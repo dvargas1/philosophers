@@ -1,3 +1,4 @@
 
 *.out
 philosophers.h.gch
+*.o
