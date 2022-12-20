@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:42:07 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/18 08:11:25 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/19 07:52:25 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int ft_isdigit(char c);
 int ft_littleatoi(char *s);
 int ft_isallnum(char *s);
 int ft_checkargs(int argc, char **argv);
+
+
+int ft_ignite(t_table *round, int argc, char **argv);
+void print_status(t_philo *philo, char *s);
+time_t get_time_stamp(void);
 
 
 void help2();

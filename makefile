@@ -6,12 +6,14 @@
 #    By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 08:03:05 by dvargas           #+#    #+#              #
-#    Updated: 2022/12/15 17:31:57 by dvargas          ###   ########.fr        #
+#    Updated: 2022/12/19 07:53:11 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	main.c \
-			parse.c
+			parse.c \
+			print.c \
+			ignite.c
 
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philosophers
