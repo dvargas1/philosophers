@@ -6,12 +6,12 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:36:29 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/19 07:54:04 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/20 17:07:16 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <bits/types/struct_timeval.h>
+//#include <bits/types/struct_timeval.h>
 #include <pthread.h>
 #include <time.h>
 
@@ -27,13 +27,18 @@ void help2()
     exit(1);
 }
 
-int    check_death(t_philo *philo, long current_time)
+int    check_death(t_philo *philo)
 {
     long    meal_check;
 
 
-    meal_check = current_time - philo->last_meal;
-    if (meal_check > philo->table->time_to_die)
+    meal_check = (get_time_stamp() - philo->table->time_start) - philo->last_meal;
+    pthread_mutex_lock(&philo->print);
+    printf("MEal_check %li ", meal_check);
+  //  printf("Current_time %li ", current_time);
+    printf("Time_to_die %li filo %i \n", philo->table->time_to_die, philo->name);
+    pthread_mutex_unlock(&philo->print);
+	if (meal_check > philo->table->time_to_die)
     {
         pthread_mutex_lock(&philo->print);
         print_status(philo, "is dead");
@@ -65,33 +70,33 @@ void eat_routine(t_philo *philo)
     pthread_mutex_lock(&philo->r_fork->lock);
     print_status(philo, "has taken a fork");
     print_status(philo, "is eating");
-    smart_sleep(philo->table->time_to_eat);
     pthread_mutex_lock(&philo->meal_time);
     philo->last_meal = get_time_stamp() - philo->table->time_start;
-    pthread_mutex_unlock(&philo->meal_time);
+    //printf("last meal %u do philo %i\n" , philo->last_meal, philo->name);
+	pthread_mutex_unlock(&philo->meal_time);
+    smart_sleep(philo->table->time_to_eat);
     pthread_mutex_unlock(&philo->l_fork->lock);
     pthread_mutex_unlock(&philo->r_fork->lock);
     print_status(philo, "is sleeping");
     smart_sleep(philo->table->time_to_sleep);
+    print_status(philo, "is thinking");
 }
 
 void *test_routine(void *arg)
 {
     t_philo *philo;
-    long current_time;
 
     philo = (t_philo *)arg;
+    if(philo->name % 2 != 0)
+          {
+            print_status(philo, "is thinking");
+                smart_sleep(philo->table->time_to_eat);
+            }
 
     while(1)
         {
-            current_time = get_time_stamp() - philo->table->time_start;
-            if(check_death(philo, current_time) == 1)
+            if(check_death(philo) == 1)
                 break;
-            if(philo->name % 2 != 0)
-            {
-                print_status(philo, "is thinking");
-                smart_sleep(philo->table->time_to_eat);
-            }
             eat_routine(philo);
         }
     return(NULL);
@@ -108,6 +113,7 @@ void lets_start(t_table *round)
             pthread_create(&round->philos[i]->thread, NULL, &test_routine, round->philos[i]);
             i++;
         }
+
 }
 
 void lets_join(t_table *round)
@@ -135,6 +141,11 @@ int main(int argc, char **argv)
         help();
     if(ft_ignite(round, argc, argv) == 0)
     {
+		if(round->nb_of_philos == 1)
+		{
+			printf("00000 is dead");
+			return 0;
+		}
         lets_start(round);
         lets_join(round);
 
