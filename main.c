@@ -30,19 +30,19 @@ void help2()
 int    check_death(t_philo *philo)
 {
     long    meal_check;
+    long    cur_time;
 
 
     meal_check = (get_time_stamp() - philo->table->time_start) - philo->last_meal;
-    pthread_mutex_lock(&philo->print);
-    printf("MEal_check %li ", meal_check);
-  //  printf("Current_time %li ", current_time);
-    printf("Time_to_die %li filo %i \n", philo->table->time_to_die, philo->name);
-    pthread_mutex_unlock(&philo->print);
-	if (meal_check > philo->table->time_to_die)
+    if (meal_check > philo->table->time_to_die)
     {
-        pthread_mutex_lock(&philo->print);
-        print_status(philo, "is dead");
-        pthread_mutex_unlock(&philo->print);
+        pthread_mutex_lock(&philo->table->mutex_kill);
+        philo->table->is_dead = 1;
+        pthread_mutex_lock(&philo->table->print);
+        cur_time = get_time_stamp() - philo->table->time_start;
+        printf("%ldms %d %s \n", cur_time, philo->name, "is dead");
+        pthread_mutex_unlock(&philo->table->print);
+        pthread_mutex_unlock(&philo->table->mutex_kill);
 
         return(1);
     }
@@ -62,7 +62,7 @@ void smart_sleep(long int time_in_ms)
         usleep(10);
 
 }
- 
+
 void eat_routine(t_philo *philo)
 {
     pthread_mutex_lock(&philo->l_fork->lock);
@@ -72,8 +72,7 @@ void eat_routine(t_philo *philo)
     print_status(philo, "is eating");
     pthread_mutex_lock(&philo->meal_time);
     philo->last_meal = get_time_stamp() - philo->table->time_start;
-    //printf("last meal %u do philo %i\n" , philo->last_meal, philo->name);
-	pthread_mutex_unlock(&philo->meal_time);
+    pthread_mutex_unlock(&philo->meal_time);
     smart_sleep(philo->table->time_to_eat);
     pthread_mutex_unlock(&philo->l_fork->lock);
     pthread_mutex_unlock(&philo->r_fork->lock);
@@ -88,20 +87,63 @@ void *test_routine(void *arg)
 
     philo = (t_philo *)arg;
     if(philo->name % 2 != 0)
-          {
-            print_status(philo, "is thinking");
-                smart_sleep(philo->table->time_to_eat);
-            }
+    {
+        print_status(philo, "is thinking");
+        smart_sleep(philo->table->time_to_eat);
+    }
 
     while(1)
         {
-            if(check_death(philo) == 1)
+            if(philo->table->nb_of_philos == 1)
                 break;
+
+            pthread_mutex_lock(&philo->table->mutex_kill);
+            if(philo->table->is_dead == 1)
+            {
+                pthread_mutex_unlock(&philo->table->mutex_kill);
+                break;
+            }
+            pthread_mutex_unlock(&philo->table->mutex_kill);
             eat_routine(philo);
         }
     return(NULL);
 
 }
+
+int check_if_dead(t_table *round)
+{
+    unsigned int i = 0;
+
+    while(i < round->nb_of_philos)
+        {
+            pthread_mutex_lock(&round->philos[i]->meal_time);
+            if(check_death(round->philos[i]) == 1)
+            {
+                pthread_mutex_unlock(&round->philos[i]->meal_time);
+                return(1);
+            }
+            pthread_mutex_unlock(&round->philos[i]->meal_time);
+            i++;
+        }
+    return(0);
+}
+
+void *reaper_routine(void *args)
+{
+    t_table *round;
+
+    round = (t_table *)args;
+    while (1)
+        {
+            if (check_if_dead(round) == 1)
+                return(NULL);
+            //    if (check_if_full(round == 1))
+            //      return(NULL);
+            usleep(100);
+        }
+    return(NULL);
+}
+
 void lets_start(t_table *round)
 {
     unsigned int i = 0;
@@ -141,13 +183,10 @@ int main(int argc, char **argv)
         help();
     if(ft_ignite(round, argc, argv) == 0)
     {
-		if(round->nb_of_philos == 1)
-		{
-			printf("00000 is dead");
-			return 0;
-		}
         lets_start(round);
+        pthread_create(&round->reaper, NULL, &reaper_routine, round);
         lets_join(round);
+        pthread_join(round->reaper, NULL);
 
 
     }

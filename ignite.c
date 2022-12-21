@@ -53,7 +53,6 @@ t_philo **ft_philo_ignite(t_table *round)
         philo[i]->l_fork = forks[0];
       else
         philo[i]->l_fork = forks[i+1];
-      pthread_mutex_init(&philo[i]->print, 0);
       pthread_mutex_init(&philo[i]->meal_time, 0);
       i++;
     }
@@ -70,5 +69,8 @@ int ft_ignite(t_table *round, int argc, char **argv)
     if(argc == 6)  
       round-> many_eats = ft_littleatoi(argv[5]);
     round->philos = ft_philo_ignite(round);
+    pthread_mutex_init(&round->mutex_kill, 0);
+    pthread_mutex_init(&round->print, 0);
+    round->is_dead = 0;
   return (0);
 }

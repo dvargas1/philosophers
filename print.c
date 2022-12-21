@@ -14,16 +14,21 @@
 
 time_t get_time_stamp(void)
 {
-  struct timeval time;
+    struct timeval time;
 
-  gettimeofday(&time, NULL);
-  return((time.tv_sec * 1000) + (time.tv_usec / 1000));
+    gettimeofday(&time, NULL);
+    return((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 void print_status(t_philo *philo, char *s)
 {
-  long cur_time;
+    long cur_time;
 
-  cur_time = get_time_stamp() - philo->table->time_start;
-  printf("%06ld %d %s \n", cur_time, philo->name, s);
+    cur_time = get_time_stamp() - philo->table->time_start;
+    if(philo->table->is_dead == 0)
+    {
+    pthread_mutex_lock(&philo->table->print);
+    printf("%ldms %d %s \n", cur_time, philo->name, s);
+    pthread_mutex_unlock(&philo->table->print);
+    }
 }

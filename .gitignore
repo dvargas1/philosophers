@@ -2,3 +2,4 @@
 *.out
 philosophers.h.gch
 *.o
+LazyPhilosophersTester/

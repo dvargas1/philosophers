@@ -37,7 +37,6 @@ typedef struct s_philo
   t_fork *l_fork;
   t_fork *r_fork;
   t_table *table;
-  pthread_mutex_t print;
   pthread_mutex_t meal_time;
 } t_philo;
 
@@ -50,6 +49,10 @@ typedef struct s_table
     time_t time_to_eat;
     time_t time_to_sleep;
     int many_eats;
+    pthread_t reaper;
+    int is_dead;
+    pthread_mutex_t mutex_kill;
+    pthread_mutex_t print;
     t_philo **philos;
 } t_table;
 

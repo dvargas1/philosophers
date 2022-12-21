@@ -16,7 +16,7 @@ SRCS	=	main.c \
 			ignite.c
 
 OBJS		= ${SRCS:%.c=%.o}
-NAME		= philosophers
+NAME		= philo
 CC			= cc
 CCFLAGS	= -g -Wall -Wextra -Werror
 ARGS		= 10 1 1 1 1
