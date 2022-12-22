@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:42:07 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/21 19:28:21 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/22 12:35:00 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	sleep_routine(t_philo *philo);
 void	think_routine(t_philo *philo);
 int		lets_start(t_table *round);
 int		lets_join(t_table *round);
+void	lets_end_this(t_table *round);
 //Parse Functions
 int		ft_isdigit(char c);
 int		ft_littleatoi(char *s);

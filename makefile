@@ -6,7 +6,7 @@
 #    By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 08:03:05 by dvargas           #+#    #+#              #
-#    Updated: 2022/12/21 19:29:16 by dvargas          ###   ########.fr        #
+#    Updated: 2022/12/22 12:34:11 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS	=	main.c \
 			ignite.c \
 			reaper.c \
 			routine.c \
-			threads.c
+			threads.c \
+			free.c
 
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philo

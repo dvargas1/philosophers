@@ -29,7 +29,7 @@ void	smart_sleep(t_philo *philo, long int time_in_ms)
 	{
 		if (philo->table->is_dead == 1)
 			break ;
-		usleep(100);
+		usleep(50);
 	}
 }
 
@@ -41,7 +41,7 @@ void	print_status(t_philo *philo, char *s)
 	if (philo->table->is_dead == 0)
 	{
 		pthread_mutex_lock(&philo->table->print);
-		printf("%ldms %d %s \n", cur_time, philo->name, s);
+		printf("%05ld %d %s \n", cur_time, philo->name, s);
 		pthread_mutex_unlock(&philo->table->print);
 	}
 }

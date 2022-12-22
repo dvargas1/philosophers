@@ -26,7 +26,7 @@ int	check_death(t_philo *philo)
 		usleep(200);
 		pthread_mutex_lock(&philo->table->print);
 		cur_time = get_time_stamp() - philo->table->time_start;
-		printf("%ldms %d %s \n", cur_time, philo->name, "died");
+		printf("%05ld %d %s \n", cur_time, philo->name, "died");
 		pthread_mutex_unlock(&philo->table->print);
 		pthread_mutex_unlock(&philo->table->mutex_kill);
 		return (1);
