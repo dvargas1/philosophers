@@ -6,19 +6,22 @@
 #    By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 08:03:05 by dvargas           #+#    #+#              #
-#    Updated: 2022/12/19 07:53:11 by dvargas          ###   ########.fr        #
+#    Updated: 2022/12/21 19:29:16 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	main.c \
 			parse.c \
 			print.c \
-			ignite.c
+			ignite.c \
+			reaper.c \
+			routine.c \
+			threads.c
 
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philo
 CC			= cc
-CCFLAGS	= -g -Wall -Wextra -Werror
+CCFLAGS		= -g -Wall -Wextra -Werror
 ARGS		= 10 1 1 1 1
 
 all:		${NAME}
