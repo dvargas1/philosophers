@@ -38,14 +38,14 @@ void	eat_routine(t_philo *philo)
 {
 	get_fork(philo, 'l');
 	get_fork(philo, 'r');
+	print_status(philo, "is eating");
 	pthread_mutex_lock(&philo->meal_time);
 	philo->times_eat++;
 	if (philo->times_eat == philo->table->many_eats)
 		philo->table->is_full++;
-	philo->last_meal = get_time_stamp() - philo->table->time_start;
-	print_status(philo, "is eating");
-	smart_sleep(philo, philo->table->time_to_eat);
+	philo->last_meal = get_time_stamp();
 	pthread_mutex_unlock(&philo->meal_time);
+	smart_sleep(philo, philo->table->time_to_eat);
 	drop_fork(philo, 'l');
 	drop_fork(philo, 'r');
 }

@@ -33,12 +33,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (lets_start(round) != 0)
 		return (1);
-	if (pthread_create(&round->reaper, NULL, &reaper_routine, round) != 0)
-		return (1);
 	if (lets_join(round) != 0)
 		return (1);
-	if (pthread_join(round->reaper, NULL) != 0)
-		return (1);
 	lets_end_this(round);
+	//free(round);
 	return (0);
 }

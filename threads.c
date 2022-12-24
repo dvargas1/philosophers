@@ -17,14 +17,14 @@ void	*philo_routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	philo->last_meal = philo->table->time_start;
+	sim_start_delay(philo->table->time_start);
 	if (philo->name % 2 != 0)
-	{
-		smart_sleep(philo, philo->table->time_to_eat);
-	}
+		smart_sleep(philo, 100);
+	if (philo->table->nb_of_philos == 1)
+		return (NULL);
 	while (1)
 	{
-		if (philo->table->nb_of_philos == 1)
-			break ;
 		pthread_mutex_lock(&philo->table->mutex_kill);
 		if (philo->table->is_dead == 1)
 		{
@@ -44,13 +44,18 @@ int	lets_start(t_table *round)
 	int	i;
 
 	i = 0;
-	round->time_start = get_time_stamp();
+	round->time_start = get_time_stamp() + (round->nb_of_philos * 2 * 10);
 	while (i < round->nb_of_philos)
 	{
 		if (pthread_create(&round->philos[i]->thread, NULL, \
 				&philo_routine, round->philos[i]) != 0)
 			return (1);
 		i++;
+	}
+	if (round->nb_of_philos > 1)
+	{
+		if (pthread_create(&round->reaper, NULL, &reaper_routine, round) != 0)
+			return (1);
 	}
 	return (0);
 }
@@ -66,5 +71,7 @@ int	lets_join(t_table *round)
 			return (1);
 		i++;
 	}
+	if (round->nb_of_philos > 1)
+		pthread_join(round->reaper, NULL);
 	return (0);
 }

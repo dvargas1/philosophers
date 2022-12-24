@@ -19,8 +19,6 @@ void	mutex_destoy(t_table *round)
 	i = 0;
 	while (i < round->nb_of_philos)
 	{
-		pthread_mutex_destroy(&round->philos[i]->l_fork->lock);
-		pthread_mutex_destroy(&round->philos[i]->r_fork->lock);
 		pthread_mutex_destroy(&round->philos[i]->meal_time);
 		i++;
 	}
@@ -41,10 +39,9 @@ void	clean_philos(t_table *round)
 	}
 	free(round->philos);
 	free(round);
-
 }
 
-void lets_end_this(t_table *round)
+void	lets_end_this(t_table *round)
 {
 	mutex_destoy(round);
 	clean_philos(round);

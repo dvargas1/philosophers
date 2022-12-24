@@ -22,26 +22,32 @@ time_t	get_time_stamp(void)
 
 void	smart_sleep(t_philo *philo, long int time_in_ms)
 {
-	long int	start_time;
+	long int	wake_up;
 
-	start_time = get_time_stamp();
-	while ((get_time_stamp() - start_time) < time_in_ms)
+	wake_up = get_time_stamp() + time_in_ms;
+	while (get_time_stamp() < wake_up)
 	{
 		if (philo->table->is_dead == 1)
 			break ;
-		usleep(50);
+		usleep(100);
 	}
+}
+
+void	sim_start_delay(time_t time_start)
+{
+	while (get_time_stamp() < time_start)
+		continue ;
 }
 
 void	print_status(t_philo *philo, char *s)
 {
 	long	cur_time;
 
-	cur_time = get_time_stamp() - philo->table->time_start;
 	if (philo->table->is_dead == 0)
 	{
 		pthread_mutex_lock(&philo->table->print);
-		printf("%05ld %d %s \n", cur_time, philo->name, s);
+		cur_time = get_time_stamp() - philo->table->time_start;
+		printf("%ld %d %s \n", cur_time, philo->name, s);
 		pthread_mutex_unlock(&philo->table->print);
 	}
 }

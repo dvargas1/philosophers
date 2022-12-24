@@ -34,7 +34,8 @@ typedef struct s_philo
 	unsigned int	name;
 	t_table			*table;
 	unsigned int	times_eat;
-	unsigned int	last_meal;
+	long int		last_meal;
+	long int		time_out;
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_mutex_t	meal_time;
@@ -76,5 +77,6 @@ time_t	get_time_stamp(void);
 void	smart_sleep(t_philo *philo, long int time_in_ms);
 
 void	help(void);
+void	sim_start_delay(time_t time_start);
 
 #endif
