@@ -21,7 +21,7 @@ SRCS	=	main.c \
 
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philo
-CC			= cc
+CC			= clang
 CCFLAGS		= -g -Wall -Wextra -Werror
 ARGS		= 10 1 1 1 1
 

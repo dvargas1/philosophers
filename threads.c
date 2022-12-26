@@ -17,7 +17,9 @@ void	*philo_routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->meal_time);
 	philo->last_meal = philo->table->time_start;
+	pthread_mutex_unlock(&philo->meal_time);
 	sim_start_delay(philo->table->time_start);
 	if (philo->name % 2 != 0)
 		smart_sleep(philo, 100);

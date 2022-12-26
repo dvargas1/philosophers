@@ -3,3 +3,4 @@
 philosophers.h.gch
 *.o
 LazyPhilosophersTester/
+philo

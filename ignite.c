@@ -54,6 +54,7 @@ t_philo	**ft_philo_ignite(t_table *round)
 		else
 			philo[i]->l_fork = forks[i + 1];
 		pthread_mutex_init(&philo[i]->meal_time, 0);
+	
 		i++;
 	}
 	free(forks);
@@ -74,5 +75,6 @@ int	ft_ignite(t_table *round, int argc, char **argv)
 	round->philos = ft_philo_ignite(round);
 	pthread_mutex_init(&round->mutex_kill, 0);
 	pthread_mutex_init(&round->print, 0);
+	pthread_mutex_init(&round->check, 0);
 	return (0);
 }

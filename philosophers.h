@@ -54,6 +54,7 @@ typedef struct s_table
 	int				is_full;
 	pthread_mutex_t	mutex_kill;
 	pthread_mutex_t	print;
+	pthread_mutex_t	check;
 	t_philo			**philos;
 }	t_table;
 
@@ -77,6 +78,6 @@ time_t	get_time_stamp(void);
 void	smart_sleep(t_philo *philo, long int time_in_ms);
 
 void	help(void);
-void	sim_start_delay(time_t time_start);
+void sim_start_delay(time_t time_start);
 
 #endif

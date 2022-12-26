@@ -28,7 +28,9 @@ void	smart_sleep(t_philo *philo, long int time_in_ms)
 	while (get_time_stamp() < wake_up)
 	{
 		if (philo->table->is_dead == 1)
+		{
 			break ;
+		}
 		usleep(100);
 	}
 }

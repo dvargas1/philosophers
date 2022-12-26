@@ -12,6 +12,11 @@
 
 #include "philosophers.h"
 
+int error_handler(void)
+{
+	printf("sorry, all args must be a integer range number different from 0");
+	return(1);
+}
 int	ft_isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -33,9 +38,9 @@ int	ft_littleatoi(char *s)
 		i++;
 	}
 	if (nb > 2147483647)
-		help();
+		return(-1);
 	if (nb == 0)
-		help();
+		return(-1);
 	return ((int)nb);
 }
 
@@ -60,8 +65,10 @@ int	ft_checkargs(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if(ft_littleatoi(argv[i]) == -1)
+			return(error_handler());
 		if (ft_isallnum(argv[i]) != 0)
-			help();
+			return(error_handler());
 		i++;
 	}
 	return (0);
