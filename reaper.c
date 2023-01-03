@@ -17,7 +17,8 @@ int	check_if_death(t_philo *philo)
 	long	cur_time;
 
 	cur_time = get_time_stamp();
-	if (philo->last_meal != 0 && (cur_time - philo->last_meal) >= philo->table->time_to_die)
+	if (philo->last_meal != 0 && (cur_time - philo->last_meal)
+		>= philo->table->time_to_die)
 	{
 		pthread_mutex_lock(&philo->table->mutex_kill);
 		philo->table->is_dead = 1;

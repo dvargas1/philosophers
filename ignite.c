@@ -37,12 +37,12 @@ t_philo	**ft_philo_ignite(t_table *round)
 	t_fork	**forks;
 	int		i;
 
-	i = 0;
+	i = -1;
 	forks = ft_fork_ignite(round);
 	philo = malloc(sizeof(t_philo) * round->nb_of_philos);
 	if (!philo || !forks)
 		return (NULL);
-	while (i < round->nb_of_philos)
+	while (++i < round->nb_of_philos)
 	{
 		philo[i] = malloc(sizeof(t_philo) * 1);
 		philo[i]->name = i;
@@ -55,7 +55,6 @@ t_philo	**ft_philo_ignite(t_table *round)
 			philo[i]->l_fork = forks[i + 1];
 		pthread_mutex_init(&philo[i]->meal_time, 0);
 		philo[i]->last_meal = 0;
-		i++;
 	}
 	free(forks);
 	return (philo);

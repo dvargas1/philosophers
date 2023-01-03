@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (ft_ignite(round, argc, argv) != 0)
 		return (1);
+	usleep(200);
 	if (lets_start(round) != 0)
 		return (1);
 	if (lets_join(round) != 0)
