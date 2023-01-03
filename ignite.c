@@ -54,6 +54,7 @@ t_philo	**ft_philo_ignite(t_table *round)
 		else
 			philo[i]->l_fork = forks[i + 1];
 		pthread_mutex_init(&philo[i]->meal_time, 0);
+		philo[i]->last_meal = 0;
 		i++;
 	}
 	free(forks);

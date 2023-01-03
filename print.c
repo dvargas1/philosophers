@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 
 time_t	get_time_stamp(void)
 {
@@ -27,11 +28,14 @@ void	smart_sleep(t_philo *philo, long int time_in_ms)
 	wake_up = get_time_stamp() + time_in_ms;
 	while (get_time_stamp() < wake_up)
 	{
+		pthread_mutex_lock(&philo->table->mutex_kill);
 		if (philo->table->is_dead == 1)
 		{
+			pthread_mutex_unlock(&philo->table->mutex_kill);
 			break ;
 		}
-		usleep(50);
+		pthread_mutex_unlock(&philo->table->mutex_kill);
+		usleep(100);
 	}
 }
 

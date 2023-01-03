@@ -74,6 +74,8 @@ int	lets_join(t_table *round)
 		i++;
 	}
 	if (round->nb_of_philos > 1)
+	{
 		pthread_join(round->reaper, NULL);
+	}
 	return (0);
 }
