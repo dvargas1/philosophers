@@ -43,6 +43,7 @@ void	print_status(t_philo *philo, char *s)
 {
 	long	cur_time;
 
+	pthread_mutex_lock(&philo->table->mutex_kill);
 	if (philo->table->is_dead == 0)
 	{
 		pthread_mutex_lock(&philo->table->print);
@@ -50,4 +51,5 @@ void	print_status(t_philo *philo, char *s)
 		printf("%ld %d %s \n", cur_time, philo->name + 1, s);
 		pthread_mutex_unlock(&philo->table->print);
 	}
+	pthread_mutex_unlock(&philo->table->mutex_kill);
 }
