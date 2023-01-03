@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:42:07 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/22 12:35:00 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/03 10:23:00 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdio.h>
 # include <sys/time.h>
 # include <time.h>
+
+# define ARGS_ERROR "Args must be a positive interger different from zero"
+# define PHILOS_ERROR "Error During Philosophers creation"
 
 typedef struct s_table	t_table;
 
@@ -58,15 +61,17 @@ typedef struct s_table
 	t_philo			**philos;
 }	t_table;
 
+// Routine functions
 void	eat_routine(t_philo *philo);
 void	sleep_routine(t_philo *philo);
 void	think_routine(t_philo *philo);
 int		lets_start(t_table *round);
 int		lets_join(t_table *round);
 void	lets_end_this(t_table *round);
+
 //Parse Functions
 int		ft_isdigit(char c);
-int		ft_littleatoi(char *s);
+int		ft_positive_atoi(char *s);
 int		ft_isallnum(char *s);
 int		ft_checkargs(int argc, char **argv);
 
@@ -77,7 +82,9 @@ void	print_status(t_philo *philo, char *s);
 time_t	get_time_stamp(void);
 void	smart_sleep(t_philo *philo, long int time_in_ms);
 
+//Error functions
+int		error_function(char *s, int code);
 void	help(void);
-void sim_start_delay(time_t time_start);
+void	sim_start_delay(time_t time_start);
 
 #endif

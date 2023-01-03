@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 11:53:00 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/21 19:19:35 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/03 10:02:59 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int	check_if_full(t_philo *philo)
 void	*reaper_routine(void *args)
 {
 	t_table	*round;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	round = (t_table *)args;
 	sim_start_delay(round->time_start);
 	while (1)
@@ -57,16 +58,16 @@ void	*reaper_routine(void *args)
 		if (check_if_death(round->philos[i]) == 1)
 		{
 			pthread_mutex_unlock(&round->philos[i]->meal_time);
-			break;
+			break ;
 		}
 		if (check_if_full(round->philos[i]) == 1)
 		{
 			pthread_mutex_unlock(&round->philos[i]->meal_time);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&round->philos[i]->meal_time);
 		i++;
-		if(i == round->nb_of_philos)
+		if (i == round->nb_of_philos)
 				i = 0;
 	}
 	return (NULL);

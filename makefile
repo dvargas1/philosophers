@@ -21,22 +21,18 @@ SRCS	=	main.c \
 
 OBJS		= ${SRCS:%.c=%.o}
 NAME		= philo
-CC			= clang
+CC			= cc
 CCFLAGS		= -g -Wall -Wextra -Werror
-ARGS		= 10 1 1 1 1
 
 all:		${NAME}
 
 $(NAME):	${OBJS}
 			@ echo 'Creating the monster ${NAME}'
 			@ ${CC} ${CCFLAGS} ${OBJS} ${LIB} -o ${NAME}
-			@ echo ' '
 			@ echo 'ITS ALIVE!!!!!!!!!'
-			@ echo ' '
 
 %.o: %.c
-			${CC} ${CCFLAGS} -c $< -o $@
-			@ echo ' '
+			@ ${CC} ${CCFLAGS} -c $< -o $@
 
 clean:
 			@ echo 'clean rule'
@@ -52,8 +48,4 @@ re:			fclean all
 			@ echo 're rule done'
 			@ echo ' '
 
-run:		all
-			@ echo ' '
-			./${NAME} ${ARGS}
-			@ echo ' '
 .PHONY:		all clean fclean re run
