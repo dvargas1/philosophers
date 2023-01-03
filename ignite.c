@@ -75,7 +75,7 @@ int	ft_ignite(t_table *round, int argc, char **argv)
 	pthread_mutex_init(&round->mutex_kill, 0);
 	pthread_mutex_init(&round->print, 0);
 	pthread_mutex_init(&round->check, 0);
-	if(!round->philos)
+	if (!round->philos)
 		error_function(PHILOS_ERROR, 1);
 	return (0);
 }

@@ -31,14 +31,8 @@ void	smart_sleep(t_philo *philo, long int time_in_ms)
 		{
 			break ;
 		}
-		usleep(100);
+		usleep(50);
 	}
-}
-
-void	sim_start_delay(time_t time_start)
-{
-	while (get_time_stamp() < time_start)
-		continue ;
 }
 
 void	print_status(t_philo *philo, char *s)
@@ -49,7 +43,7 @@ void	print_status(t_philo *philo, char *s)
 	{
 		pthread_mutex_lock(&philo->table->print);
 		cur_time = get_time_stamp() - philo->table->time_start;
-		printf("%ld %d %s \n", cur_time, philo->name, s);
+		printf("%ld %d %s \n", cur_time, philo->name + 1, s);
 		pthread_mutex_unlock(&philo->table->print);
 	}
 }

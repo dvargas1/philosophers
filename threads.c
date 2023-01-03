@@ -20,11 +20,11 @@ void	*philo_routine(void *arg)
 	pthread_mutex_lock(&philo->meal_time);
 	philo->last_meal = philo->table->time_start;
 	pthread_mutex_unlock(&philo->meal_time);
-	sim_start_delay(philo->table->time_start);
 	if (philo->name % 2 != 0)
-		smart_sleep(philo, 100);
+		smart_sleep(philo, 50);
 	if (philo->table->nb_of_philos == 1)
-		return (NULL);
+		return (smart_sleep(philo, philo->table->time_to_die),
+			printf("%ld 1 died", philo->table->time_to_die), NULL);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->table->mutex_kill);
@@ -46,7 +46,7 @@ int	lets_start(t_table *round)
 	int	i;
 
 	i = 0;
-	round->time_start = get_time_stamp() + (round->nb_of_philos * 2 * 10);
+	round->time_start = get_time_stamp();
 	while (i < round->nb_of_philos)
 	{
 		if (pthread_create(&round->philos[i]->thread, NULL, \

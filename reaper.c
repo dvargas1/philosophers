@@ -51,7 +51,6 @@ void	*reaper_routine(void *args)
 
 	i = 0;
 	round = (t_table *)args;
-	sim_start_delay(round->time_start);
 	while (1)
 	{
 		pthread_mutex_lock(&round->philos[i]->meal_time);
